@@ -6,7 +6,6 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const robotsRouter = require("./routes/robots");
-const leftRouter = require("./routes/left");
 
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
@@ -29,6 +28,5 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/robots", robotsRouter);
-app.use("/left", leftRouter);
 
 module.exports = app;

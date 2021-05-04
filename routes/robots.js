@@ -9,7 +9,12 @@ const {
   addRobot,
   deleteRobot,
 } = require("../controller/robotsController");
+const { goLeft } = require("../controller/goLeftController");
 
 router.route("/").get(getRobots).post(addRobot).delete(deleteRobot);
+
+router.route("/left").post(goLeft);
+
+router.route("/right").post(goRight);
 
 module.exports = router;

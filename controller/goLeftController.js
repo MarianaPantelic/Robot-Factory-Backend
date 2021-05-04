@@ -10,21 +10,34 @@ exports.goLeft = (req, res) => {
   let robot = robots.find((robot) => robot.name === robotName);
   switch (robot.heading) {
     case "NORTH":
-      robot.heading = "WEST";
+      db.get("robots")
+        .find({ name: robotName })
+        .assign({ heading: "WEST" })
+        .write();
       break;
     case "EAST":
-      robot.heading = "NORTH";
+      db.get("robots")
+        .find({ name: robotName })
+        .assign({ heading: "NORTH" })
+        .write();
+
       break;
     case "SOUTH":
-      robot.heading = "EAST";
+      db.get("robots")
+        .find({ name: robotName })
+        .assign({ heading: "EAST" })
+        .write();
+
       break;
     case "WEST":
-      robot.heading = "SOUTH";
+      db.get("robots")
+        .find({ name: robotName })
+        .assign({ heading: "SOUTH" })
+        .write();
+
       break;
     default:
       null;
   }
   res.status(200).send(robot);
 };
-
-//db.get("posts").find({ title: "low!" }).assign({ title: "hi!" }).write();
