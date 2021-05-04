@@ -3,7 +3,7 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("data/db.json");
 const db = low(adapter);
 
-exports.goLeft = (req, res) => {
+exports.goRight = (req, res) => {
   let robotName = req.body.name;
   const robots = db.get("robots").value();
   let robot = robots.find((robot) => robot.name === robotName);
@@ -11,27 +11,27 @@ exports.goLeft = (req, res) => {
     case "NORTH":
       db.get("robots")
         .find({ name: robotName })
-        .assign({ heading: "WEST" })
+        .assign({ heading: "EAST" })
         .write();
       break;
     case "EAST":
       db.get("robots")
         .find({ name: robotName })
-        .assign({ heading: "NORTH" })
+        .assign({ heading: "SOUTH" })
         .write();
 
       break;
     case "SOUTH":
       db.get("robots")
         .find({ name: robotName })
-        .assign({ heading: "EAST" })
+        .assign({ heading: "WEST" })
         .write();
 
       break;
     case "WEST":
       db.get("robots")
         .find({ name: robotName })
-        .assign({ heading: "SOUTH" })
+        .assign({ heading: "NORTH" })
         .write();
 
       break;

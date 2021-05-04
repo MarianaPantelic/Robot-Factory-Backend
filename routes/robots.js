@@ -10,6 +10,7 @@ const {
   deleteRobot,
 } = require("../controller/robotsController");
 const { goLeft } = require("../controller/goLeftController");
+const { goRight } = require("../controller/goRightController");
 
 router.route("/").get(getRobots).post(addRobot).delete(deleteRobot);
 
