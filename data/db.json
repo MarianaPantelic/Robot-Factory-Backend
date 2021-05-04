@@ -2,7 +2,7 @@
   "robots": [
     {
       "name": "Eddy",
-      "posX": 0,
+      "posX": 1,
       "posY": 0,
       "heading": "EAST",
       "id": "1620129185209"
