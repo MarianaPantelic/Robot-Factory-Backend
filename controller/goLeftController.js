@@ -27,4 +27,4 @@ exports.goLeft = (req, res) => {
   res.status(200).send(robot);
 };
 
-db.get("posts").find({ title: "low!" }).assign({ title: "hi!" }).write();
+//db.get("posts").find({ title: "low!" }).assign({ title: "hi!" }).write();

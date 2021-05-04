@@ -1,0 +1,18 @@
+{
+  "robots": [
+    {
+      "name": "Eddy",
+      "posX": 0,
+      "posY": 0,
+      "heading": "NORTH",
+      "id": "1620129185209"
+    },
+    {
+      "name": "John",
+      "posX": 0,
+      "posY": 0,
+      "heading": "NORTH",
+      "id": "1620130210061"
+    }
+  ]
+}
