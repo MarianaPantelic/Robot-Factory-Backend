@@ -7,36 +7,22 @@ exports.goLeft = (req, res) => {
   let robotName = req.body.name;
   const robots = db.get("robots").value();
   let robot = robots.find((robot) => robot.name === robotName);
-  switch (robot.heading) {
-    case "NORTH":
-      db.get("robots")
-        .find({ name: robotName })
-        .assign({ heading: "WEST" })
-        .write();
-      break;
-    case "EAST":
-      db.get("robots")
-        .find({ name: robotName })
-        .assign({ heading: "NORTH" })
-        .write();
-
-      break;
-    case "SOUTH":
-      db.get("robots")
-        .find({ name: robotName })
-        .assign({ heading: "EAST" })
-        .write();
-
-      break;
-    case "WEST":
-      db.get("robots")
-        .find({ name: robotName })
-        .assign({ heading: "SOUTH" })
-        .write();
-
-      break;
-    default:
-      null;
-  }
+  const checkHeading = (heading) => {
+    switch (heading) {
+      case "NORTH":
+        return (heading = "WEST");
+      case "EAST":
+        return (heading = "NORTH");
+      case "SOUTH":
+        return (heading = "EAST");
+      case "WEST":
+        return (heading = "SOUTH");
+    }
+  };
+  let newHeading = checkHeading(robot.heading);
+  db.get("robots")
+    .find({ name: robotName })
+    .assign({ heading: newHeading })
+    .write();
   res.status(200).send(robot);
 };
