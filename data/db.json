@@ -3,8 +3,8 @@
     {
       "name": "Eddy",
       "posX": 3,
-      "posY": -2,
-      "heading": "WEST",
+      "posY": 0,
+      "heading": "NORTH",
       "id": "1620217918565"
     },
     {
@@ -17,7 +17,7 @@
     {
       "name": "abdullah",
       "posX": 1,
-      "posY": -2,
+      "posY": -3,
       "heading": "SOUTH",
       "id": "1620221119851"
     }
