@@ -7,6 +7,10 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const robotsRouter = require("./routes/robots");
 
+/*CORS Security for the clients website to disable same-origin-policy for only his website */
+//import of the security middleware
+const { setCors } = require("./middleware/security");
+
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 
@@ -24,6 +28,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+//SET CORS TO OMIT SECURITY ERRORS
+app.use(setCors);
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
