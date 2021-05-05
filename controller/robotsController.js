@@ -5,11 +5,13 @@ const db = low(adapter);
 
 exports.getRobots = (req, res) => {
   const robots = db.get("robots").value();
+  console.log(robots);
   res.status(200).send(robots);
 };
 
 exports.addRobot = (req, res) => {
   const robot = req.body;
+  console.log(robot);
   db.get("robots")
     .push(robot)
     .last()

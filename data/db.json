@@ -2,17 +2,10 @@
   "robots": [
     {
       "name": "Eddy",
-      "posX": 1,
-      "posY": 0,
-      "heading": "EAST",
-      "id": "1620129185209"
-    },
-    {
-      "name": "John",
       "posX": 0,
       "posY": 0,
-      "heading": "SOUTH",
-      "id": "1620130210061"
+      "heading": "WEST",
+      "id": "1620217918565"
     }
   ]
 }
