@@ -19,9 +19,9 @@ var app = express();
 const adapter = new FileSync("data/db.json");
 const db = low(adapter);
 //add default entries to the DATABASE
-db.defaults({
+/* db.defaults({
   robots: [],
-}).write();
+}).write(); */
 
 app.use(logger("dev"));
 app.use(express.json());

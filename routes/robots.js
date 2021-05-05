@@ -8,11 +8,10 @@ const {
   getRobots,
   addRobot,
   deleteRobot,
+  goLeft,
+  goRight,
+  moveForward,
 } = require("../controller/robotsController");
-
-const { goLeft } = require("../controller/goLeftController");
-const { goRight } = require("../controller/goRightController");
-const { moveForward } = require("../controller/moveForwardController");
 
 router.route("/").get(getRobots).post(addRobot).delete(deleteRobot);
 
