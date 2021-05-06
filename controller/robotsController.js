@@ -2,6 +2,8 @@ const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("data/db.json");
 const db = low(adapter);
+const isEmpty = require("lodash.isempty");
+const alert = require("alert");
 
 exports.getRobots = (req, res) => {
   const robots = db.get("robots").value();
@@ -9,15 +11,37 @@ exports.getRobots = (req, res) => {
   res.status(200).send(robots);
 };
 
-exports.addRobot = (req, res) => {
-  const robot = req.body;
-  console.log(robot);
-  db.get("robots")
-    .push(robot)
-    .last()
-    .assign({ posX: 0, posY: 0, heading: "NORTH", id: Date.now().toString() })
-    .write();
-  res.status(201).send(robot);
+exports.addRobot = (req, res, next) => {
+  try {
+    if (isEmpty(req.body.title)) {
+      alert("Pease enter a name!");
+      //respond with an error
+      const error = new Error("Request body is empty");
+      //bad request
+      error.status = 400;
+      //set stack to null
+      error.stack = null;
+      next(error);
+    } else {
+      const robot = req.body;
+      console.log(robot);
+      db.get("robots")
+        .push(robot)
+        .last()
+        .assign({
+          posX: 0,
+          posY: 0,
+          heading: "NORTH",
+          id: Date.now().toString(),
+        })
+        .write();
+      res.status(201).send(robot);
+    }
+  } catch (error) {
+    console.log(error);
+    //forward the error to the error handler
+    next(error);
+  }
 };
 
 exports.deleteRobot = (req, res) => {

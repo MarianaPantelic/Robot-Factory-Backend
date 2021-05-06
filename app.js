@@ -32,6 +32,20 @@ app.use(express.static(path.join(__dirname, "public")));
 //SET CORS TO OMIT SECURITY ERRORS
 app.use(setCors);
 
+/*
+ERROR HANDLING
+*/
+app.use((err, req, res, next) => {
+  //respond to the requestor with the error messages
+  //set response status to 500
+  console.log(err);
+  res.status(500).send({
+    error: {
+      message: err.message,
+    },
+  });
+});
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/robots", robotsRouter);
