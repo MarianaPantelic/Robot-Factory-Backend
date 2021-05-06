@@ -147,38 +147,52 @@ exports.goRight = (req, res, next) => {
 };
 
 exports.moveForward = (req, res, next) => {
-  let robotId = req.body.id;
-  const robots = db.get("robots").value();
-  let robot = robots.find((robot) => robot.id === robotId);
-  let posX = Number(robot.posX);
-  let posY = Number(robot.posY);
-  switch (robot.heading) {
-    case "NORTH":
-      db.get("robots")
-        .find({ id: robotId })
-        .assign({ posY: posY + 1 })
-        .write();
-      break;
-    case "EAST":
-      db.get("robots")
-        .find({ id: robotId })
-        .assign({ posX: posX + 1 })
-        .write();
-      break;
-    case "SOUTH":
-      db.get("robots")
-        .find({ id: robotId })
-        .assign({ posY: posY - 1 })
-        .write();
-      break;
-    case "WEST":
-      db.get("robots")
-        .find({ id: robotId })
-        .assign({ posX: posX - 1 })
-        .write();
-      break;
-    default:
-      null;
+  try {
+    if (isEmpty(req.body)) {
+      //respond with an error
+      const error = new Error("Request body is empty");
+      //bad request
+      error.status = 400;
+      //set stack to null
+      error.stack = null;
+      next(error);
+    } else {
+      let robotId = req.body.id;
+      const robots = db.get("robots").value();
+      let robot = robots.find((robot) => robot.id === robotId);
+      let posX = Number(robot.posX);
+      let posY = Number(robot.posY);
+      switch (robot.heading) {
+        case "NORTH":
+          db.get("robots")
+            .find({ id: robotId })
+            .assign({ posY: posY + 1 })
+            .write();
+          break;
+        case "EAST":
+          db.get("robots")
+            .find({ id: robotId })
+            .assign({ posX: posX + 1 })
+            .write();
+          break;
+        case "SOUTH":
+          db.get("robots")
+            .find({ id: robotId })
+            .assign({ posY: posY - 1 })
+            .write();
+          break;
+        case "WEST":
+          db.get("robots")
+            .find({ id: robotId })
+            .assign({ posX: posX - 1 })
+            .write();
+          break;
+        default:
+          null;
+      }
+      res.status(200).send(robot);
+    }
+  } catch (error) {
+    console.log(error);
   }
-  res.status(200).send(robot);
 };
