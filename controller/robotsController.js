@@ -108,31 +108,45 @@ exports.goLeft = (req, res, next) => {
   }
 };
 
-exports.goRight = (req, res) => {
-  let robotId = req.body.id;
-  const robots = db.get("robots").value();
-  let robot = robots.find((robot) => robot.id == robotId);
-  const checkHeading = (heading) => {
-    switch (heading) {
-      case "NORTH":
-        return (heading = "EAST");
-      case "EAST":
-        return (heading = "SOUTH");
-      case "SOUTH":
-        return (heading = "WEST");
-      case "WEST":
-        return (heading = "NORTH");
+exports.goRight = (req, res, next) => {
+  try {
+    if (isEmpty(req.body)) {
+      //respond with an error
+      const error = new Error("Request body is empty");
+      //bad request
+      error.status = 400;
+      //set stack to null
+      error.stack = null;
+      next(error);
+    } else {
+      let robotId = req.body.id;
+      const robots = db.get("robots").value();
+      let robot = robots.find((robot) => robot.id == robotId);
+      const checkHeading = (heading) => {
+        switch (heading) {
+          case "NORTH":
+            return (heading = "EAST");
+          case "EAST":
+            return (heading = "SOUTH");
+          case "SOUTH":
+            return (heading = "WEST");
+          case "WEST":
+            return (heading = "NORTH");
+        }
+      };
+      let newHeading = checkHeading(robot.heading);
+      db.get("robots")
+        .find({ id: robotId })
+        .assign({ heading: newHeading })
+        .write();
+      res.status(200).send(robot);
     }
-  };
-  let newHeading = checkHeading(robot.heading);
-  db.get("robots")
-    .find({ id: robotId })
-    .assign({ heading: newHeading })
-    .write();
-  res.status(200).send(robot);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-exports.moveForward = (req, res) => {
+exports.moveForward = (req, res, next) => {
   let robotId = req.body.id;
   const robots = db.get("robots").value();
   let robot = robots.find((robot) => robot.id === robotId);
