@@ -165,31 +165,15 @@ exports.moveForward = (req, res, next) => {
       switch (robot.heading) {
         case "NORTH":
           posY = posY + 1;
-          /* db.get("robots")
-            .find({ id: robotId })
-            .assign({ posY: posY + 1 })
-            .write(); */
           break;
         case "EAST":
           posX = posX + 1;
-          /* db.get("robots")
-            .find({ id: robotId })
-            .assign({ posX: posX + 1 })
-            .write(); */
           break;
         case "SOUTH":
           posY = posY - 1;
-          /* db.get("robots")
-            .find({ id: robotId })
-            .assign({ posY: posY - 1 })
-            .write(); */
           break;
         case "WEST":
           posX = posY - 1;
-          /* db.get("robots")
-            .find({ id: robotId })
-            .assign({ posX: posX - 1 })
-            .write(); */
           break;
         default:
           null;
