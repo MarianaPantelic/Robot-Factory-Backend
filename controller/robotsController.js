@@ -17,7 +17,7 @@ exports.getRobots = (req, res) => {
 
 exports.addRobot = (req, res, next) => {
   try {
-    if (isEmpty(req.body.title)) {
+    if (isEmpty(req.body.name)) {
       alert("Pease enter a name!");
       //respond with an error
       const error = new Error("Request body is empty");
@@ -164,32 +164,40 @@ exports.moveForward = (req, res, next) => {
       let posY = Number(robot.posY);
       switch (robot.heading) {
         case "NORTH":
-          db.get("robots")
+          posY = posY + 1;
+          /* db.get("robots")
             .find({ id: robotId })
             .assign({ posY: posY + 1 })
-            .write();
+            .write(); */
           break;
         case "EAST":
-          db.get("robots")
+          posX = posX + 1;
+          /* db.get("robots")
             .find({ id: robotId })
             .assign({ posX: posX + 1 })
-            .write();
+            .write(); */
           break;
         case "SOUTH":
-          db.get("robots")
+          posY = posY - 1;
+          /* db.get("robots")
             .find({ id: robotId })
             .assign({ posY: posY - 1 })
-            .write();
+            .write(); */
           break;
         case "WEST":
-          db.get("robots")
+          posX = posY - 1;
+          /* db.get("robots")
             .find({ id: robotId })
             .assign({ posX: posX - 1 })
-            .write();
+            .write(); */
           break;
         default:
           null;
       }
+      db.get("robots")
+        .find({ id: robotId })
+        .assign({ posX: posX, posY: posY })
+        .write();
       res.status(200).send(robot);
     }
   } catch (error) {

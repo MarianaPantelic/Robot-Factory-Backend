@@ -13,6 +13,13 @@
       "posY": 0,
       "heading": "EAST",
       "id": "1620218952919"
+    },
+    {
+      "name": "John",
+      "posX": 2,
+      "posY": 3,
+      "heading": "EAST",
+      "id": "1620308655633"
     }
   ]
 }
