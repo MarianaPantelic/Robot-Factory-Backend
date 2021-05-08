@@ -32,6 +32,10 @@ app.use(express.static(path.join(__dirname, "public")));
 //SET CORS TO OMIT SECURITY ERRORS
 app.use(setCors);
 
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/robots", robotsRouter);
+
 /*
 ERROR HANDLING
 */
@@ -45,9 +49,5 @@ app.use((err, req, res, next) => {
     },
   });
 });
-
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/robots", robotsRouter);
 
 module.exports = app;
